@@ -1,0 +1,10 @@
+BAIXAR MYSQL SERVER E WORKBENCH EM -> https://dev.mysql.com/downloads/
+INSTALAR 
+
+EM MYSQL WORKBENCH CRIAR CONEXÃO PADRAO root root
+
+EXECUTAR O SCRIPT SQL
+
+BAIXAR O DRIVER -> https://dev.mysql.com/downloads/connector/j/
+
+EM BIBLIOTECA ADICIONAR PASTA RAR DO CONECTOR
