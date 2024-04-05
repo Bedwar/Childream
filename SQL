@@ -1,35 +1,34 @@
 show databases;
-create database progDesktop;
+create database progdesktop;
 use progdesktop;
+
 create  table tusuario (
 id int primary key,
 usuario varchar(50),
 login varchar(10)not null unique,
 senha varchar(10)not null
 );
-describe usuario;
-drop table usuario;
-insert into tusuario(id,usuario,login,senha) values (7,'berenice','bebe','mixu');
+
+insert into tusuario(id,usuario,login,senha) values (7,'bere','be','mixu');
 delete from tusuario where id = 7;
 insert into tusuario values (4,'gian','gian','cheer');
 insert into tusuario values (3,'admin','admin','admin');
-select * from tusuario;
 insert into tusuario values (2,'lucas','lucas','dani');
 
 create table criança(
 idcri int primary key auto_increment,
 nomecli varchar(50) not null,
-idade int
+nomecri varchar (20),
+idade int,
+ender varchar(200)
 );
-alter table criança add ender varchar(50);
+
 
 insert into criança(nomecri,idade,ender) values ('Jorge','5','Santos Dumont 33');
 insert into criança(nomecri,idade,ender) values ('Gian','6','Mario Contiere 02');
 insert into criança(nomecri,idade,ender) values ('Gabriel','3','Rubio Sanches 21');
 insert into criança(nomecri,idade,ender) values ('Lucas','7','My Coracion 69');
 
-
-alter table criança add column nomecri varchar(20);
 
 create table declaraçao(
 ocorrencia int primary key auto_increment,
@@ -44,8 +43,6 @@ foreign key(idcri) references criança(idcri)
 insert into declaraçao (motivo,obs,idcri) values ('visita ao parque','quarta feira as 14:00',2);
 
 
-select * from tusuario;
-select * from criança;
 
 select D.motivo,obs,
 C.nomecri,idade
