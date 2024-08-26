@@ -10,14 +10,12 @@ senha varchar(10)not null
 );
 
 insert into tusuario(id,usuario,login,senha) values (7,'bere','be','mixu');
-delete from tusuario where id = 7;
 insert into tusuario values (4,'gian','gian','cheer');
 insert into tusuario values (3,'admin','admin','admin');
 insert into tusuario values (2,'lucas','lucas','dani');
 
 create table criança(
 idcri int primary key auto_increment,
-nomecli varchar(50) not null,
 nomecri varchar (20),
 idade int,
 ender varchar(200)
@@ -30,17 +28,33 @@ insert into criança(nomecri,idade,ender) values ('Gabriel','3','Rubio Sanches 2
 insert into criança(nomecri,idade,ender) values ('Lucas','7','My Coracion 69');
 
 
+create table reponsavel(
+cpf int primary key,
+nome varchar(20) not null,
+idade int,
+endereco varchar(50) not null
+);
+
+
+insert into reponsavel(cpf,nome,idade,endereco) values (12345,'Mateus','28','Santos Dumont 45');
+insert into criança(cpf,nome,idade,endereco) values (54321,'João','45','Mario Contiere 102');
+
+
+
 create table declaraçao(
 ocorrencia int primary key auto_increment,
 data_o timestamp default current_timestamp,
 motivo varchar(20) not null,
 obs varchar (50),
 idcri int not null,
-foreign key(idcri) references criança(idcri)
+foreign key(idcri) references criança(idcri),
+cpf int,
+foreign key(cpf) references reponsavel(cpf)
 );
 
 
-insert into declaraçao (motivo,obs,idcri) values ('visita ao parque','quarta feira as 14:00',2);
+
+insert into declaraçao (motivo,obs,idcri,cpf) values ('visita ao parque','quarta feira as 14:00',2,12345);
 
 
 

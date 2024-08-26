@@ -1,30 +1,32 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package views;
 
-import java.sql.*;
 import CadastroDAL.ModulodeConexao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author beatr
+ * @author Mateus RTX4070
  */
-public class JGestor extends javax.swing.JInternalFrame {
+public class JGestorReponsa extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form JProfessor
+     * Creates new form JGestorReponsa
      */
-    Connection conectar = null;
+    
+        Connection conectar = null;
     PreparedStatement pcc = null;
     ResultSet rs;
-
-    public JGestor() {
+    
+    public JGestorReponsa() {
         initComponents();
-        conectar = ModulodeConexao.conexao();
+         conectar = ModulodeConexao.conexao();
     }
 
     private void limparcampo() {
@@ -34,16 +36,17 @@ public class JGestor extends javax.swing.JInternalFrame {
     }
 
     private void novo() {
-        String sql = "insert into criança(nomecri,idade,ender) values (?,?,?)";
+        String sql = "insert into reponsavel(cpf,nome,idade,endereco) values (?,?,?,?)";
 
         try {
             // ID AUTOINCREMENT
             pcc = conectar.prepareStatement(sql);
-            pcc.setString(1, txtNome.getText());
-            pcc.setString(2, txtIda.getText());
-            pcc.setString(3, txtEnd.getText());
+            pcc.setString(1, txtCpf.getText());
+            pcc.setString(2, txtNome.getText());
+            pcc.setString(3, txtIda.getText());
+            pcc.setString(4, txtEnd.getText());
 
-            if ((txtNome.getText().isEmpty()) || (txtIda.getText().isEmpty()) || (txtEnd.getText().isEmpty())) {
+            if ((txtNome.getText().isEmpty()) || (txtIda.getText().isEmpty()) || (txtEnd.getText().isEmpty()) || (txtCpf.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Insira todos os campos");
             }
             int adc = pcc.executeUpdate();
@@ -58,13 +61,14 @@ public class JGestor extends javax.swing.JInternalFrame {
     }
 
     private void alterar() {
-        String sql = "update criança set nomecri=?,idade=?,ender=? where idcri=?";
+        String sql = "update reponsavel set cpf=?,nome=?,idade=?,endereco=? where cpf=?";
         try {
             pcc = conectar.prepareStatement(sql);
-            pcc.setString(1, txtNome.getText());
-            pcc.setString(2, txtIda.getText());
-            pcc.setString(3, txtEnd.getText());
-            pcc.setString(4, txtID.getText());
+            pcc.setString(1, txtCpf.getText());
+            pcc.setString(2, txtNome.getText());
+            pcc.setString(3, txtIda.getText());
+            pcc.setString(4, txtEnd.getText());
+            pcc.setString(5, txtCpf.getText());
             pcc.executeUpdate();
             JOptionPane.showMessageDialog(null, "Alterado");
             limparcampo();
@@ -76,16 +80,17 @@ public class JGestor extends javax.swing.JInternalFrame {
     }
 
     private void ver() {
-        String sql = "select * from criança where idcri=?";
+        String sql = "select * from reponsavel where cpf=?";
         try {
             pcc = conectar.prepareStatement(sql);
-            pcc.setString(1, txtID.getText());
+            pcc.setString(1, txtCpf.getText());
             rs = pcc.executeQuery();
 
             if (rs.next()) {
-                txtNome.setText(rs.getString(4));
-                txtIda.setText(rs.getString(2));
-                txtEnd.setText(rs.getString(3));
+                txtCpf.setText(rs.getString(1));
+                txtNome.setText(rs.getString(2));
+                txtIda.setText(rs.getString(3));
+                txtEnd.setText(rs.getString(4));
 
             } else {
                 JOptionPane.showMessageDialog(null, "não cadastrado");
@@ -102,12 +107,13 @@ public class JGestor extends javax.swing.JInternalFrame {
         int del = JOptionPane.showConfirmDialog(null, "Excluir?");
 
         if (del == JOptionPane.YES_OPTION) {
-            String sql = "delete from criança where idcri=?";
+            String sql = "delete from reponsavel where cpf=?";
 
             try {
                 pcc = conectar.prepareStatement(sql);
-                pcc.setString(1, txtID.getText());
+                pcc.setString(1, txtCpf.getText());
                pcc.executeUpdate();
+               limparcampo();
                if(del>0){
                JOptionPane.showMessageDialog(null, "Removido");
                limparcampo();
@@ -118,6 +124,7 @@ public class JGestor extends javax.swing.JInternalFrame {
         }
     }
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,6 +134,9 @@ public class JGestor extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtEnd = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtCpf = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -136,17 +146,23 @@ public class JGestor extends javax.swing.JInternalFrame {
         btDelete = new javax.swing.JButton();
         txtNome = new javax.swing.JTextField();
         txtIda = new javax.swing.JTextField();
-        txtEnd = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setClosable(true);
-        setTitle("Cadastrar Criança");
-        setPreferredSize(new java.awt.Dimension(570, 473));
+        setTitle("Cadastrar Resposnavel");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("CPF");
+
+        txtCpf.setName("txtCpf"); // NOI18N
+        txtCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCpfActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Nome");
@@ -199,22 +215,13 @@ public class JGestor extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("ID");
-
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("Deletar");
-
-        jLabel7.setText("Pesquisar");
+        jLabel5.setText("Criar");
 
         jLabel6.setText("Alterar");
 
-        jLabel5.setText("Criar");
+        jLabel7.setText("Pesquisar");
+
+        jLabel8.setText("Deletar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -237,7 +244,7 @@ public class JGestor extends javax.swing.JInternalFrame {
                                     .addComponent(txtNome)
                                     .addComponent(txtIda)
                                     .addComponent(txtEnd)
-                                    .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)))))
+                                    .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,18 +253,17 @@ public class JGestor extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btVer, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(80, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(78, 78, 78)
-                .addComponent(jLabel6)
-                .addGap(62, 62, 62)
-                .addComponent(jLabel7)
-                .addGap(59, 59, 59)
-                .addComponent(jLabel8)
-                .addGap(100, 100, 100))
+                        .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(jLabel5)
+                        .addGap(78, 78, 78)
+                        .addComponent(jLabel6)
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel7)
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel8)))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,7 +271,7 @@ public class JGestor extends javax.swing.JInternalFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -290,24 +296,15 @@ public class JGestor extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 570, 473);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+    private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
-
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
-
-    private void btVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerActionPerformed
-        // TODO add your handling code here:
-        ver();
-    }//GEN-LAST:event_btVerActionPerformed
+    }//GEN-LAST:event_txtCpfActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         // TODO add your handling code here:
@@ -319,10 +316,19 @@ public class JGestor extends javax.swing.JInternalFrame {
         alterar();
     }//GEN-LAST:event_btEditarActionPerformed
 
+    private void btVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerActionPerformed
+        // TODO add your handling code here:
+        ver();
+    }//GEN-LAST:event_btVerActionPerformed
+
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
         // TODO add your handling code here:
         delete();
     }//GEN-LAST:event_btDeleteActionPerformed
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -338,8 +344,8 @@ public class JGestor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtEnd;
-    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtIda;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables

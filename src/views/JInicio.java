@@ -5,7 +5,7 @@
  */
 package views;
 
-import java.awt.Color;
+
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -33,10 +33,14 @@ public class JInicio extends javax.swing.JFrame {
 
         tCad = new javax.swing.JLabel();
         tRel = new javax.swing.JLabel();
-        tOp = new javax.swing.JLabel();
         desktop = new javax.swing.JDesktopPane();
         tUsu = new javax.swing.JLabel();
         tData = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        tCad1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tCad2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -59,22 +63,50 @@ public class JInicio extends javax.swing.JFrame {
         tRel.setToolTipText("Relatorio");
         tRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        tOp.setText("Opções");
+        desktop.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1)));
+        desktop.setToolTipText("");
 
         javax.swing.GroupLayout desktopLayout = new javax.swing.GroupLayout(desktop);
         desktop.setLayout(desktopLayout);
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 568, Short.MAX_VALUE)
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
 
         tUsu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         tData.setText("jLabel1");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("Criança");
+
+        tCad1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reg.png"))); // NOI18N
+        tCad1.setToolTipText("Cadastro");
+        tCad1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tCad1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tCad1MouseClicked(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("Responsavel");
+
+        tCad2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reg.png"))); // NOI18N
+        tCad2.setToolTipText("Cadastro");
+        tCad2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tCad2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tCad2MouseClicked(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Visitas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,39 +116,57 @@ public class JInicio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tData, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(tOp)
+                                .addComponent(jLabel1)
                                 .addGap(29, 29, 29))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(tRel)
-                                    .addComponent(tCad))
+                                    .addComponent(tCad)
+                                    .addComponent(tCad1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(tCad2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(16, 16, 16)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tData, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tRel))
                                 .addGap(18, 18, 18)))))
-                .addComponent(desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(desktop)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(14, 14, 14)
                 .addComponent(tCad, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(tCad1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tCad2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(tRel)
-                .addGap(18, 18, 18)
-                .addComponent(tOp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(3, 3, 3)
                 .addComponent(tData, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
-            .addComponent(desktop, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleParent(tUsu);
@@ -140,6 +190,20 @@ public class JInicio extends javax.swing.JFrame {
         usu.setVisible(true);
         desktop.add(usu);
     }//GEN-LAST:event_tCadMouseClicked
+
+    private void tCad1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tCad1MouseClicked
+        // TODO add your handling code here:
+        JGestorReponsa usuResponsa = new JGestorReponsa();
+        usuResponsa.setVisible(true);
+        desktop.add(usuResponsa);
+    }//GEN-LAST:event_tCad1MouseClicked
+
+    private void tCad2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tCad2MouseClicked
+        // TODO add your handling code here:
+        JGestorDeclaracao usuDecl = new JGestorDeclaracao();
+        usuDecl.setVisible(true);
+        desktop.add(usuDecl);
+    }//GEN-LAST:event_tCad2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -178,9 +242,13 @@ public class JInicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane desktop;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel tCad;
+    private javax.swing.JLabel tCad1;
+    private javax.swing.JLabel tCad2;
     public static javax.swing.JLabel tData;
-    private javax.swing.JLabel tOp;
     private javax.swing.JLabel tRel;
     public static javax.swing.JLabel tUsu;
     // End of variables declaration//GEN-END:variables

@@ -1,49 +1,54 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package views;
 
-import java.sql.*;
 import CadastroDAL.ModulodeConexao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author beatr
+ * @author Mateus RTX4070
  */
-public class JGestor extends javax.swing.JInternalFrame {
+public class JGestorDeclaracao extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form JProfessor
+     * Creates new form JGestorDeclaracao
      */
+    
     Connection conectar = null;
     PreparedStatement pcc = null;
     ResultSet rs;
-
-    public JGestor() {
+    
+    public JGestorDeclaracao() {
         initComponents();
         conectar = ModulodeConexao.conexao();
     }
+   
 
     private void limparcampo() {
-        txtNome.setText(null);
-        txtIda.setText(null);
-        txtEnd.setText(null);
+        txtCpf.setText(null);
+        txtDecla.setText(null);
+        txtID.setText(null);
+        txtObs.setText(null);
     }
 
     private void novo() {
-        String sql = "insert into criança(nomecri,idade,ender) values (?,?,?)";
+        String sql = "insert into declaraçao(motivo,obs,idcri,cpf)  values (?,?,?,?)";
 
         try {
             // ID AUTOINCREMENT
             pcc = conectar.prepareStatement(sql);
-            pcc.setString(1, txtNome.getText());
-            pcc.setString(2, txtIda.getText());
-            pcc.setString(3, txtEnd.getText());
+            pcc.setString(1, txtDecla.getText());
+            pcc.setString(2, txtObs.getText());
+            pcc.setString(3, txtID.getText());
+            pcc.setString(4, txtCpf.getText());
 
-            if ((txtNome.getText().isEmpty()) || (txtIda.getText().isEmpty()) || (txtEnd.getText().isEmpty())) {
+            if ((txtCpf.getText().isEmpty()) || (txtDecla.getText().isEmpty()) || (txtID.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Insira todos os campos");
             }
             int adc = pcc.executeUpdate();
@@ -58,13 +63,15 @@ public class JGestor extends javax.swing.JInternalFrame {
     }
 
     private void alterar() {
-        String sql = "update criança set nomecri=?,idade=?,ender=? where idcri=?";
+        String sql = "update declaraçao set motivo=?,obs=?,idcri=?,cpf=? where cpf=? and idcri=?";
         try {
             pcc = conectar.prepareStatement(sql);
-            pcc.setString(1, txtNome.getText());
-            pcc.setString(2, txtIda.getText());
-            pcc.setString(3, txtEnd.getText());
-            pcc.setString(4, txtID.getText());
+            pcc.setString(1, txtDecla.getText());
+            pcc.setString(2, txtObs.getText());
+            pcc.setString(3, txtID.getText());
+            pcc.setString(4, txtCpf.getText());
+            pcc.setString(5, txtCpf.getText());
+            pcc.setString(6, txtID.getText());
             pcc.executeUpdate();
             JOptionPane.showMessageDialog(null, "Alterado");
             limparcampo();
@@ -76,16 +83,19 @@ public class JGestor extends javax.swing.JInternalFrame {
     }
 
     private void ver() {
-        String sql = "select * from criança where idcri=?";
+        String sql = "select * from declaraçao where txtCpf=? and txtID=?";
         try {
             pcc = conectar.prepareStatement(sql);
             pcc.setString(1, txtID.getText());
+            pcc.setString(2, txtCpf.getText());
             rs = pcc.executeQuery();
 
             if (rs.next()) {
-                txtNome.setText(rs.getString(4));
-                txtIda.setText(rs.getString(2));
-                txtEnd.setText(rs.getString(3));
+                txtCpf.setText(rs.getString(6));
+                txtID.setText(rs.getString(5));
+                txtObs.setText(rs.getString(4));
+                txtDecla.setText(rs.getString(3));
+                
 
             } else {
                 JOptionPane.showMessageDialog(null, "não cadastrado");
@@ -102,12 +112,13 @@ public class JGestor extends javax.swing.JInternalFrame {
         int del = JOptionPane.showConfirmDialog(null, "Excluir?");
 
         if (del == JOptionPane.YES_OPTION) {
-            String sql = "delete from criança where idcri=?";
+            String sql = "delete from declaraçao where idcri=? and cpf=?";
 
             try {
                 pcc = conectar.prepareStatement(sql);
                 pcc.setString(1, txtID.getText());
-               pcc.executeUpdate();
+                pcc.setString(2, txtCpf.getText());
+                pcc.executeUpdate();
                if(del>0){
                JOptionPane.showMessageDialog(null, "Removido");
                limparcampo();
@@ -118,6 +129,7 @@ public class JGestor extends javax.swing.JInternalFrame {
         }
     }
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,35 +139,26 @@ public class JGestor extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         btNovo = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         btEditar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         btVer = new javax.swing.JButton();
         btDelete = new javax.swing.JButton();
-        txtNome = new javax.swing.JTextField();
-        txtIda = new javax.swing.JTextField();
-        txtEnd = new javax.swing.JTextField();
+        txtCpf = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDecla = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtObs = new javax.swing.JTextArea();
 
         setClosable(true);
-        setTitle("Cadastrar Criança");
-        setPreferredSize(new java.awt.Dimension(570, 473));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Nome");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Idade");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("Endereço");
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new.png"))); // NOI18N
         btNovo.setToolTipText("Novo");
@@ -166,6 +169,8 @@ public class JGestor extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel6.setText("Alterar");
+
         btEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit.png"))); // NOI18N
         btEditar.setToolTipText("Editar");
         btEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -174,6 +179,8 @@ public class JGestor extends javax.swing.JInternalFrame {
                 btEditarActionPerformed(evt);
             }
         });
+
+        jLabel5.setText("Criar");
 
         btVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/view.png"))); // NOI18N
         btVer.setToolTipText("Ver");
@@ -193,14 +200,17 @@ public class JGestor extends javax.swing.JInternalFrame {
             }
         });
 
-        txtNome.addActionListener(new java.awt.event.ActionListener() {
+        txtCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeActionPerformed(evt);
+                txtCpfActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("ID");
+        jLabel4.setText(" ID Criança");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("CPF Reponsavel");
 
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,77 +218,86 @@ public class JGestor extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("Declaração");
+
         jLabel8.setText("Deletar");
 
         jLabel7.setText("Pesquisar");
 
-        jLabel6.setText("Alterar");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Observaçao:");
 
-        jLabel5.setText("Criar");
+        txtDecla.setColumns(20);
+        txtDecla.setRows(5);
+        jScrollPane1.setViewportView(txtDecla);
+
+        txtObs.setColumns(20);
+        txtObs.setRows(5);
+        jScrollPane2.setViewportView(txtObs);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(88, 88, 88)
+                            .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btVer, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(111, 111, 111)
+                            .addComponent(jLabel5)
+                            .addGap(78, 78, 78)
+                            .addComponent(jLabel6)
+                            .addGap(62, 62, 62)
+                            .addComponent(jLabel7)
+                            .addGap(59, 59, 59)
+                            .addComponent(jLabel8))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(77, 77, 77)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel4)
-                                        .addComponent(jLabel1)))
-                                .addGap(64, 64, 64)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNome)
-                                    .addComponent(txtIda)
-                                    .addComponent(txtEnd)
-                                    .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btVer, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(80, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(78, 78, 78)
-                .addComponent(jLabel6)
-                .addGap(62, 62, 62)
-                .addComponent(jLabel7)
-                .addGap(59, 59, 59)
-                .addComponent(jLabel8)
-                .addGap(100, 100, 100))
+                                        .addComponent(jLabel1))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)))))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtIda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btVer, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -290,24 +309,11 @@ public class JGestor extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
-        setBounds(0, 0, 570, 473);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
-
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
-
-    private void btVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerActionPerformed
-        // TODO add your handling code here:
-        ver();
-    }//GEN-LAST:event_btVerActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         // TODO add your handling code here:
@@ -319,10 +325,23 @@ public class JGestor extends javax.swing.JInternalFrame {
         alterar();
     }//GEN-LAST:event_btEditarActionPerformed
 
+    private void btVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerActionPerformed
+        // TODO add your handling code here:
+        ver();
+    }//GEN-LAST:event_btVerActionPerformed
+
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
         // TODO add your handling code here:
         delete();
     }//GEN-LAST:event_btDeleteActionPerformed
+
+    private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCpfActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -338,9 +357,11 @@ public class JGestor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField txtEnd;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField txtCpf;
+    private javax.swing.JTextArea txtDecla;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtIda;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextArea txtObs;
     // End of variables declaration//GEN-END:variables
 }
