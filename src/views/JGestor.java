@@ -18,9 +18,9 @@ public class JGestor extends javax.swing.JInternalFrame {
     /**
      * Creates new form JProfessor
      */
-    Connection conectar = null;
-    PreparedStatement pcc = null;
-    ResultSet rs;
+    public Connection conectar = null;
+    public PreparedStatement pcc = null;
+    public ResultSet rs;
 
     public JGestor() {
         initComponents();
@@ -33,7 +33,7 @@ public class JGestor extends javax.swing.JInternalFrame {
         txtEnd.setText(null);
     }
 
-    private void novo() {
+    public void novo() {
         String sql = "insert into criança(nomecri,idade,ender) values (?,?,?)";
 
         try {
@@ -57,7 +57,7 @@ public class JGestor extends javax.swing.JInternalFrame {
         }
     }
 
-    private void alterar() {
+    public void alterar() {
         String sql = "update criança set nomecri=?,idade=?,ender=? where idcri=?";
         try {
             pcc = conectar.prepareStatement(sql);
@@ -75,7 +75,7 @@ public class JGestor extends javax.swing.JInternalFrame {
 
     }
 
-    private void ver() {
+    public void ver() {
         String sql = "select * from criança where idcri=?";
         try {
             pcc = conectar.prepareStatement(sql);
@@ -97,7 +97,7 @@ public class JGestor extends javax.swing.JInternalFrame {
         }
     }
 
-    private void delete() {
+    public void delete() {
 
         int del = JOptionPane.showConfirmDialog(null, "Excluir?");
 
@@ -338,9 +338,9 @@ public class JGestor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField txtEnd;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtIda;
-    private javax.swing.JTextField txtNome;
+    public javax.swing.JTextField txtEnd;
+    public javax.swing.JTextField txtID;
+    public javax.swing.JTextField txtIda;
+    public javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }
